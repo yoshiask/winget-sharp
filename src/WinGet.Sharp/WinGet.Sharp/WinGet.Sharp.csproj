@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0-windows10.0.22621.0</TargetFramework>
+        <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <WinGetComVersion>1.5.1572</WinGetComVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <VersionPrefix>$(WinGetComVersion)</VersionPrefix>
+        <Authors>Joshua Askharoun,Microsoft</Authors>
+        <Description>A C# projection of the Windows Package Manager API provided by WinGet.</Description>
+        <RepositoryUrl>https://github.com/yoshiask/winget-sharp</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.4" />
+        <PackageReference Include="Microsoft.WindowsPackageManager.ComInterop" Version="$(WinGetComVersion)" GeneratePathProperty="true">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <!-- CsWinRT properties -->
+    <PropertyGroup>
+        <CsWinRTWindowsMetadata>10.0.22621.0</CsWinRTWindowsMetadata>
+        <CsWinRTIncludes>Microsoft.Management.Deployment;Windows.System.ProcessorArchitecture</CsWinRTIncludes>
+        <CsWinRTExcludes>Windows.Foundation.Diagnostics</CsWinRTExcludes>
+
+        <ReferencePath>$(ReferencePath);$(PkgMicrosoft_WindowsPackageManager_ComInterop)</ReferencePath>
+    </PropertyGroup>
+
+</Project>
