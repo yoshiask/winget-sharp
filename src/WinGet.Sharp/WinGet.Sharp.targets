@@ -1,0 +1,14 @@
+<Project>
+    <PropertyGroup>
+        <_WPMwinmd>$(MSBuildThisFileDirectory)Microsoft.Management.Deployment.winmd</_WPMwinmd>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <Content Include="$(MSBuildThisFileDirectory)*.winmd" CopyToOutputDirectory="PreserveNewest"/>
+    </ItemGroup>
+
+    <Target Name="CopyWPMWinMD" BeforeTargets="Build">
+        <!--<Copy SourceFiles="@(TestFilesFilesToCopy)" DestinationFolder="$(ProjectDir)TestFiles/%(RecursiveDir)" SkipUnchangedFiles="true" />-->
+        <Message Text="$(_WPMwinmd)" Importance="high"/>
+    </Target>
+</Project>
