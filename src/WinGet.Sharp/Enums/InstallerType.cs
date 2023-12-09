@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace WinGet.Sharp.Enums;
 
-//[JsonConverter(typeof(EnumIgnoreCaseStringConverter<InstallerType>))]
+[JsonConverter(typeof(EnumIgnoreCaseStringConverter<InstallerType>))]
 public enum InstallerType
 {
     [EnumMember(Value = "unknown")]

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace WinGet.Sharp.Enums;
 
-//[JsonConverter(typeof(EnumIgnoreCaseStringConverter<InstallerArchitecture>))]
+[JsonConverter(typeof(EnumIgnoreCaseStringConverter<InstallerArchitecture>))]
 [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.6.9.0 (Newtonsoft.Json v13.0.0.0)")]
 public enum InstallerArchitecture
 {
