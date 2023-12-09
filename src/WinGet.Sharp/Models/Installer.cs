@@ -51,6 +51,19 @@ public class Installer
     [RegularExpression(@"^[A-Fa-f0-9]{64}$")]
     public string SignatureSha256 { get; set; }
 
+    /// <summary>
+    /// The installer type when InstallerType is an archive type.
+    /// This is the installer type of the file within the archive which will be used as the installer.
+    /// </summary>
+    public InstallerType? NestedInstallerType { get; set; }
+
+    /// <summary>
+    /// NestedInstallerFiles is required when InstallerType is an archive type such as <see cref="InstallerType.Zip"/>.
+    /// This is a list of all the installers to be executed within an archive.
+    /// This field can only contain one nested installer file unless the <see cref="NestedInstallerType"/> is <see cref="InstallerType.Portable"/>.
+    /// </summary>
+    public List<NestedFile> NestedInstallerFiles { get; set; }
+
     [MaxLength(3)]
     public List<InstallModes> InstallModes { get; set; }
 
@@ -140,6 +153,8 @@ public class Installer
     public List<AppsAndFeaturesEntry> AppsAndFeaturesEntries { get; set; }
 
     public ElevationRequirement? ElevationRequirement { get; set; }
+
+    public bool IsNested() => InstallerType == Enums.InstallerType.Zip;
 }
 
 [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.6.9.0 (Newtonsoft.Json v13.0.0.0)")]
