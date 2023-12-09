@@ -8,7 +8,7 @@
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
 
-		<TestLocalNuGetPacakge>true</TestLocalNuGetPacakge>
+		<TestLocalNuGetPacakge>false</TestLocalNuGetPacakge>
 
 		<RestoreAdditionalProjectSources Condition="$(TestLocalNuGetPacakge) == 'true'">
 			$(RestoreAdditionalProjectSources);

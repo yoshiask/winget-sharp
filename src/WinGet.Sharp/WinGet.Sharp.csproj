@@ -1,22 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0-windows10.0.22621</TargetFramework>
-        <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+        <TargetFrameworks>net6.0-windows10.0.22621;netstandard2.0</TargetFrameworks>
+		<IsWindowsTarget Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">false</IsWindowsTarget>
+		<IsWindowsTarget Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">true</IsWindowsTarget>
+		
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>latest</LangVersion>
+		
         <WinGetComVersion>1.5.1572</WinGetComVersion>
+        <SupportedOSPlatformVersion Condition="$(IsWindowsTarget)">10.0.17763.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <PropertyGroup>
-        <VersionPrefix>$(WinGetComVersion)</VersionPrefix>
+        <VersionPrefix>$(WinGetComVersion).1</VersionPrefix>
         <Authors>Joshua Askharoun,Microsoft</Authors>
-        <Description>A C# projection of the Windows Package Manager API provided by WinGet.</Description>
+        <Description>A C# projection of the Windows Package Manager API provided by WinGet. Also includes models and wrappers around the WinGet Community Repository.</Description>
         <RepositoryUrl>https://github.com/yoshiask/winget-sharp</RepositoryUrl>
     </PropertyGroup>
 
-    <ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="YamlDotNet" Version="13.7.1" />
+		<PackageReference Include="Flurl.Http" Version="3.2.4" />
+
+		<PackageReference Condition="$(TargetFramework.StartsWith('netstandard'))"
+						  Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	</ItemGroup>
+
+    <ItemGroup Condition="$(IsWindowsTarget)">
         <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.4" />
         <PackageReference Include="Microsoft.WindowsPackageManager.ComInterop" Version="$(WinGetComVersion)" GeneratePathProperty="true">
             <PrivateAssets>all</PrivateAssets>
@@ -34,7 +48,7 @@
     </ItemGroup>
 
     <!-- CsWinRT properties -->
-    <PropertyGroup>
+    <PropertyGroup Condition="$(IsWindowsTarget)">
         <CsWinRTWindowsMetadata>10.0.22621.0</CsWinRTWindowsMetadata>
         <CsWinRTIncludes>Microsoft.Management.Deployment</CsWinRTIncludes>
         <CsWinRTExcludes>Windows.Foundation.Diagnostics</CsWinRTExcludes>

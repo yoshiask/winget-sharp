@@ -1,4 +1,6 @@
-﻿using Microsoft.Management.Deployment;
+﻿#if WINDOWS
+
+using Microsoft.Management.Deployment;
 using System.Runtime.InteropServices;
 using WinRT;
 
@@ -33,3 +35,5 @@ public static class WinGetFactory
         return obj;
     }
 }
+
+#endif
