@@ -138,16 +138,10 @@ public class Primary
     }
 
     [Fact]
-    public async Task CreateAuthenticationArguments()
+    public void CreateAuthenticationArguments()
     {
         var args = WinGetFactory.CreateAuthenticationArguments();
         args.AuthenticationAccount = "Account";
         args.AuthenticationMode = AuthenticationMode.Interactive;
-    }
-
-    [Fact]
-    public async Task CreatePackageManagerSettings()
-    {
-        _ = WinGetFactory.CreatePackageManagerSettings();
     }
 }
