@@ -96,4 +96,44 @@ public class Primary
             _log.WriteLine($"{package.Name} ({package.Id})");
         }
     }
+
+    [Theory]
+    [InlineData("notepad++")]
+    public async Task DownloadCommunityRepoPackage(string query)
+    {
+        var downloadOptions = WinGetFactory.CreateDownloadOptions();
+        //downloadOptions.Architecture = Windows.System.ProcessorArchitecture.X64;
+        //downloadOptions.InstallerType = PackageInstallerType.Msix;
+        downloadOptions.DownloadDirectory = Path.GetTempPath();
+
+        PackageManager manager = WinGetFactory.CreatePackageManager();
+
+        var catalogRef = manager.GetPredefinedPackageCatalog(PredefinedPackageCatalog.OpenWindowsCatalog);
+        var catalog = catalogRef.Connect().PackageCatalog;
+
+        var filter = WinGetFactory.CreatePackageMatchFilter();
+        filter.Field = PackageMatchField.Name;
+        filter.Option = PackageFieldMatchOption.ContainsCaseInsensitive;
+        filter.Value = query;
+
+        FindPackagesOptions searchOptions = WinGetFactory.CreateFindPackagesOptions();
+        searchOptions.Filters.Add(filter);
+
+        var result = await catalog.FindPackagesAsync(searchOptions);
+        Assert.Equal(FindPackagesResultStatus.Ok, result.Status);
+
+        var matches = result.Matches.ToList();
+        Assert.NotEmpty(matches);
+
+        var match = matches.First();
+        await manager.DownloadPackageAsync(match.CatalogPackage, downloadOptions)
+            .AsTask(new Progress<PackageDownloadProgress>(DownloadProgress));
+
+        _log.WriteLine("Download complete");
+
+        void DownloadProgress(PackageDownloadProgress prog)
+        {
+            _log.WriteLine($"{prog.DownloadProgress * 100:00.00}%");
+        }
+    }
 }
