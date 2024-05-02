@@ -55,7 +55,7 @@ public static class CommunityRepo
     private static async Task<TManifest> GetAndDeserializeAsync<TManifest>(string id, string version, string? manifestType = null, CancellationToken cancellationToken = default)
     {
         var url = BuildManifestUrl(id, version, manifestType);
-        var yaml = await url.GetStringAsync(cancellationToken);
+        var yaml = await url.GetStringAsync(cancellationToken: cancellationToken);
 
         return _deserializer.Deserialize<TManifest>(yaml);
     }
