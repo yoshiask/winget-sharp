@@ -136,4 +136,18 @@ public class Primary
             _log.WriteLine($"{prog.DownloadProgress * 100:00.00}%");
         }
     }
+
+    [Fact]
+    public async Task CreateAuthenticationArguments()
+    {
+        var args = WinGetFactory.CreateAuthenticationArguments();
+        args.AuthenticationAccount = "Account";
+        args.AuthenticationMode = AuthenticationMode.Interactive;
+    }
+
+    [Fact]
+    public async Task CreatePackageManagerSettings()
+    {
+        _ = WinGetFactory.CreatePackageManagerSettings();
+    }
 }
