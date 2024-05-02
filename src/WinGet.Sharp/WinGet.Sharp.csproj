@@ -2,32 +2,32 @@
 
     <PropertyGroup>
         <TargetFrameworks>net6.0-windows10.0.22621;netstandard2.0</TargetFrameworks>
-		<IsWindowsTarget Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">false</IsWindowsTarget>
-		<IsWindowsTarget Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">true</IsWindowsTarget>
-		
+        <IsWindowsTarget Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'windows'">false</IsWindowsTarget>
+        <IsWindowsTarget Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">true</IsWindowsTarget>
+        
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<LangVersion>latest</LangVersion>
-		
+        <LangVersion>latest</LangVersion>
+        
         <WinGetComVersion>1.7.11132</WinGetComVersion>
         <SupportedOSPlatformVersion Condition="$(IsWindowsTarget)">10.0.17763.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
     <PropertyGroup>
-        <VersionPrefix>$(WinGetComVersion).1</VersionPrefix>
+        <VersionPrefix>$(WinGetComVersion).0</VersionPrefix>
         <Authors>Joshua Askharoun,Microsoft</Authors>
         <Description>A C# projection of the Windows Package Manager API provided by WinGet. Also includes models and wrappers around the WinGet Community Repository.</Description>
         <RepositoryUrl>https://github.com/yoshiask/winget-sharp</RepositoryUrl>
     </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="YamlDotNet" Version="15.1.2" />
-		<PackageReference Include="Flurl.Http" Version="4.0.2" />
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="YamlDotNet" Version="15.1.2" />
+        <PackageReference Include="Flurl.Http" Version="4.0.2" />
 
-		<PackageReference Condition="$(TargetFramework.StartsWith('netstandard'))" Include="System.ComponentModel.Annotations" Version="5.0.0" />
-	</ItemGroup>
+        <PackageReference Condition="$(TargetFramework.StartsWith('netstandard'))" Include="System.ComponentModel.Annotations" Version="5.0.0" />
+    </ItemGroup>
 
     <ItemGroup Condition="$(IsWindowsTarget)">
         <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
