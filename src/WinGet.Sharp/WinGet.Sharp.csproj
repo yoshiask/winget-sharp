@@ -10,7 +10,7 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         
-        <WinGetComVersion>1.7.11132</WinGetComVersion>
+        <WinGetComVersion>1.8.1911</WinGetComVersion>
         <SupportedOSPlatformVersion Condition="$(IsWindowsTarget)">10.0.17763.0</SupportedOSPlatformVersion>
     </PropertyGroup>
 
@@ -23,14 +23,14 @@
 
     <ItemGroup>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="YamlDotNet" Version="15.1.2" />
+        <PackageReference Include="YamlDotNet" Version="16.0.0" />
         <PackageReference Include="Flurl.Http" Version="4.0.2" />
 
         <PackageReference Condition="$(TargetFramework.StartsWith('netstandard'))" Include="System.ComponentModel.Annotations" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup Condition="$(IsWindowsTarget)">
-        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.7" />
+        <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.8" />
         <PackageReference Include="Microsoft.WindowsPackageManager.ComInterop" Version="$(WinGetComVersion)" GeneratePathProperty="true">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
